@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useState } from '@wordpress/element';
+import { useState, useEffect, useRef } from '@wordpress/element';
 import { createSlotFill } from '@wordpress/components';
 
 /**
@@ -24,8 +24,17 @@ const NavigationPanel = () => {
 		[]
 	);
 
+	const menuRef = useRef();
+	useEffect( () => {
+		menuRef.current.focus();
+	}, [ templatesActiveMenu ] );
+
 	return (
-		<div className="edit-site-navigation-panel">
+		<div
+			className="edit-site-navigation-panel"
+			ref={ menuRef }
+			tabIndex="-1"
+		>
 			{ ( contentActiveMenu === MENU_ROOT ||
 				templatesActiveMenu !== MENU_ROOT ) && <TemplatesNavigation /> }
 
